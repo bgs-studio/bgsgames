@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <title>BGS</title>
+    <style>
+        /* Container for the background carousel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Full screen height */
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+        .dim-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* 50% black overlay */
+            z-index: 1; /* Ensures the dim layer stays on top of the background */
+        }
+        /* Logo centered over the carousel */
+        .logo {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 30%;
+            z-index: 1; /* Make sure the logo stays on top */
+        }
+
+        /* Optional: Style for the content over the background */
+        .content {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            font-size: 2rem;
+            z-index: 2;
+        }
+        .logo-title {
+    position: absolute;
+    bottom: 20px; /* Distance from the bottom of the container */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    font-size: 2rem; /* Adjust font size if needed */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    z-index: 2; /* Ensure the title is on top of the dim overlay */
+    font-family: Arial, sans-serif; /* Use a clean font, can be changed */
+    letter-spacing: 2px; /* Add some spacing between letters */
+    text-transform: uppercase; /* Makes the title uppercase */
+        }
+
+        /* Navigation bar styling */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            z-index: 3; /* Ensures the navbar is above other content */
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar ul li {
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-family: Arial, sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #f0f0f0; /* Change color on hover */
+        }
+
+        /* Section styling */
+        .section {
+            padding: 60px 20px; /* Add padding to ensure content isn't hidden behind the navbar */
+            text-align: center;
+        }
+
+        #home {
+            background: #f8f9fa; /* Light background for Home section */
+        }
+
+        #games {
+            background: #e9ecef; /* Slightly darker background for Games section */
+        }
+        
+.games-container {
+    display: flex;
+    justify-content: center; /* Center the cards horizontally */
+    overflow-x: auto;
+    padding: 20px 0;
+    scroll-behavior: smooth; /* Smooth scrolling */
+    gap: 20px; /* Space between cards */
+}
+
+.game-card {
+    flex: 0 0 auto; /* Ensure cards do not shrink or grow */
+    width: 250px; /* Width of each card */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 10px; /* Margin between cards */
+}
+
+.game-card img {
+    width: 100%;
+    height: auto;
+}
+
+.game-card-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.game-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.game-card p {
+    margin: 0;
+    color: #555;
+    font-size: 1rem;
+}
+
+.game-card:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+        #contact {
+            background: #dee2e6; /* Light gray background for Contact section */
+        }
+
+        /* Contact form styling */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+        .contact-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .contact-info a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+/* Social Icons */
+.social-icons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .social-icons a {
+            color: #555;
+            font-size: 24px;
+            margin: 0 15px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #007bff; /* Change to your brand color on hover */
+        }
+
+        .social-icons a .fab {
+            font-size: 24px; /* Set icon size */
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container" id="carousel">
+        <!-- Dim Overlay -->
+        <div class="dim-overlay"></div>
+        <img src="src/logo.png" alt="Logo" class="logo">
+      <div class="logo-title">Baltistan Gaming Studio</div>
+    </div>
+    <div width="90%">
+        <h2>Privacy Policy for Baltistan Gaming Studio</h2> 
+        <span>Updated: 08/09/2023</span> 
+        <p>Thank you for choosing to be part of Baltistan Gaming Studio's gaming community. This privacy policy outlines how we collect, use, and protect your personal information when you access and use our games and services. By using our games, you agree to the practices described in this policy.</p>
+            <ul>
+                <li>
+                    1. Information We Collect
+                        Personal Information: We may collect information such as your name, email address, and other contact details when you create an account or contact us for support.
+                        Device Information: We collect device information such as device type, operating system, and unique device identifiers when you access and use our games.
+                        Game Data: We collect data generated by your interactions with our games, including gameplay data, achievements, progress, and preferences.
+                </li>
+                <li>
+                    2. How We Use Your Information
+            We use your personal information to create and manage your gaming accounts, respond to your inquiries, and provide customer support.
+            Device information is used to optimize game performance, diagnose technical issues, and enhance your gaming experience.
+            Game data is used to improve gameplay, offer personalized recommendations, and develop new features.
+                </li>
+                <li>
+                    3. Data Sharing
+                    We may share your personal information with third-party service providers to assist with customer support, analytics, and marketing.
+                    We do not sell your personal information to third parties.
+                    
+                </li>
+                   <li>
+                    4. Data Security
+                    We employ industry-standard security measures to protect your data from unauthorized access, disclosure, alteration, or destruction.
+                   </li>
+                   <li>
+                    5. Your Choices
+                        You can choose not to provide certain information, but this may limit your ability to access certain features or services.
+                        You can manage your privacy preferences within our games' settings.
+                </li>
+               <li>  6. Children's Privacy
+            Our games are intended for a general audience, and we do not knowingly collect personal information from children under the age of [age]. If you believe a child has provided us with personal information, please contact us to have it removed.</li>
+            <li> 7. Updates to Privacy Policy
+            We may update this privacy policy as our practices evolve. The updated policy will be posted on our website and will be effective from the date of publication.</li>
+        
+            <li> 8. Contact Us
+            If you have questions, concerns, or requests related to your personal information or this privacy policy, you can contact us at: 
+            baltistanistudio@gmail.com. 
+        </li>
+            </ul>
+    </div>
+    <script>
+        // Array of background images
+        const images = [
+        'src/4.png',  // Path to your first background image
+        'src/5.png',  // Path to your second background image
+        'src/6.png'  // Path to your third background image
+        ];
+        
+        let currentIndex = 0;
+        const carouselElement = document.getElementById('carousel');
+        
+        // Function to change the background image
+        function changeBackground() {
+          currentIndex = (currentIndex + 1) % images.length;  // Loop through images
+          carouselElement.style.backgroundImage = `url('${images[currentIndex]}')`;
+        }
+        
+        // Initial background image
+        carouselElement.style.backgroundImage = `url('${images[0]}')`;
+        
+        // Change background every 5 seconds
+        setInterval(changeBackground, 5000); // 5000ms = 5 seconds
+      
+      </script>
+</body>
+</html>
+   
+    
+
